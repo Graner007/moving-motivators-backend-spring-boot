@@ -1,6 +1,6 @@
 package com.codecool.movingmotivators.service;
 
-import com.codecool.movingmotivators.model.CardModel;
+import com.codecool.movingmotivators.model.Card;
 import com.codecool.movingmotivators.repository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class CardService {
     @Autowired
     private CardRepository cardRepository;
 
-    public List<CardModel> getAllCards() {
+    public List<Card> getAllCards() {
         return cardRepository.findAll();
     }
 }

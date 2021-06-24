@@ -12,18 +12,23 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-public class CardModel {
+@Table(name = "card")
+public class Card {
 
     @GeneratedValue
     @Id
     private Long id;
 
     private int orderNumber;
-    private VerticalStatusType verticalStatusType;
+
+    /*@Enumerated(EnumType.STRING)
+    private VerticalStatusName verticalStatusName;*/
+    private String verticalStatusName;
 
     @ManyToOne
-    private BoardModel boardModel;
+    @JoinColumn(referencedColumnName = "id")
+    private Board board;
 
     @OneToOne
-    private CardTypeModel cardTypeModel;
+    private CardType cardType;
 }

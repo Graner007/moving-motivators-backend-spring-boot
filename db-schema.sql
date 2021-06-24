@@ -76,3 +76,31 @@ ALTER TABLE ONLY card
 
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
+
+INSERT INTO person VALUES (DEFAULT, 'user', 'user@gmail.com', '12345', CURRENT_TIMESTAMP);
+
+INSERT INTO card_type VALUES (DEFAULT, 'freedom', 'freedom.png');
+INSERT INTO card_type VALUES (DEFAULT, 'goal', 'goal.png');
+INSERT INTO card_type VALUES (DEFAULT, 'honor', 'honor.png');
+INSERT INTO card_type VALUES (DEFAULT, 'order', 'order.png');
+INSERT INTO card_type VALUES (DEFAULT, 'acceptance', 'acceptance.png');
+INSERT INTO card_type VALUES (DEFAULT, 'curiosity', 'curiosity.png');
+INSERT INTO card_type VALUES (DEFAULT, 'mastery', 'mastery.png');
+INSERT INTO card_type VALUES (DEFAULT, 'power', 'power.png');
+INSERT INTO card_type VALUES (DEFAULT, 'relatedness', 'relatedness.png');
+INSERT INTO card_type VALUES (DEFAULT, 'status', 'status.png');
+
+INSERT INTO question VALUES (DEFAULT, 'What do you want to do?');
+
+INSERT INTO board VALUES (DEFAULT, 1, 1);
+
+INSERT INTO card VALUES (DEFAULT, 1, 'natural', 1, 1);
+INSERT INTO card VALUES (DEFAULT, 2, 'natural', 1, 2);
+INSERT INTO card VALUES (DEFAULT, 3, 'natural', 1, 3);
+INSERT INTO card VALUES (DEFAULT, 4, 'natural', 1, 4);
+INSERT INTO card VALUES (DEFAULT, 5, 'natural', 1, 5);
+INSERT INTO card VALUES (DEFAULT, 6, 'natural', 1, 6);
+INSERT INTO card VALUES (DEFAULT, 7, 'natural', 1, 7);
+INSERT INTO card VALUES (DEFAULT, 8, 'natural', 1, 8);
+INSERT INTO card VALUES (DEFAULT, 9, 'natural', 1, 9);
+INSERT INTO card VALUES (DEFAULT, 10, 'natural', 1, 10);
