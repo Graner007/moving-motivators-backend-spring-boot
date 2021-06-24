@@ -5,21 +5,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-public class CardTypeModel {
+@Table(name = "board")
+public class Board {
 
     @GeneratedValue
     @Id
     private Long id;
 
-    private String description;
-    private String imageName;
+    @OneToOne
+    private Person person;
+
+    @OneToOne
+    private Question question;
 }

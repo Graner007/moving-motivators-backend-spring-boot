@@ -1,7 +1,9 @@
 package com.codecool.movingmotivators.repository;
 
-import com.codecool.movingmotivators.model.PersonModel;
+import com.codecool.movingmotivators.model.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PersonRepository extends JpaRepository<PersonModel, Long> {
+@Repository
+public interface PersonRepository extends JpaRepository<Person, Long> {
 }

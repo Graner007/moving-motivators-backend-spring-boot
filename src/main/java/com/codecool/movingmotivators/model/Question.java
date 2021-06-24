@@ -8,22 +8,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.Table;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-public class PersonModel {
+@Table(name = "question")
+public class Question {
 
     @GeneratedValue
     @Id
     private Long id;
 
-    private String username;
-    private String password;
-    private String email;
-    private LocalDate registrationDate;
-
+    private String questionText;
 }
