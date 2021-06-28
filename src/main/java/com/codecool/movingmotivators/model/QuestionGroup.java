@@ -22,4 +22,6 @@ public class QuestionGroup {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Person person;
+
+    private String groupName;
 }
