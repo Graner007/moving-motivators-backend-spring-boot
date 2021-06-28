@@ -1,6 +1,6 @@
 ALTER TABLE IF EXISTS ONLY public.person DROP CONSTRAINT IF EXISTS pk_person_id CASCADE;
 
-ALTER TABLE IF EXISTS ONLY public.question_group DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.question_group DROP CONSTRAINT IF EXISTS pk_question_group_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question_group DROP CONSTRAINT IF EXISTS fk_person_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS pk_card_id CASCADE;
@@ -46,8 +46,8 @@ CREATE TABLE card_type (
 DROP TABLE IF EXISTS public.question;
 CREATE TABLE question (
                           id SERIAL NOT NULL,
-                          question_text TEXT NOT NULL
-                              quesiton_group_id INTEGER NOT NULL,
+                          question_text TEXT NOT NULL,
+                          question_group_id INTEGER NOT NULL,
                           finalized BOOLEAN NOT NULL DEFAULT FALSE
 );
 
@@ -55,7 +55,7 @@ ALTER TABLE ONLY person
     ADD CONSTRAINT pk_person_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY question_group
-    ADD CONSTRAINT pk_question_id PRIMARY KEY (id);
+    ADD CONSTRAINT pk_question_group_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY card_type
     ADD CONSTRAINT pk_card_type_id PRIMARY KEY (id);
@@ -78,7 +78,7 @@ ALTER TABLE ONLY card
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
 
-INSERT INTO person VALUES (DEFAULT, 'user', 'user@gmail.com', '12345', CURRENT_TIMESTAMP);
+INSERT INTO person VALUES (DEFAULT, 'user', '12345', CURRENT_TIMESTAMP);
 
 INSERT INTO card_type VALUES (DEFAULT, 'curiosity', 'curiosity.png');
 INSERT INTO card_type VALUES (DEFAULT, 'honor', 'honor.png');
