@@ -1,31 +1,30 @@
 ALTER TABLE IF EXISTS ONLY public.person DROP CONSTRAINT IF EXISTS pk_person_id CASCADE;
 
-ALTER TABLE IF EXISTS ONLY public.board DROP CONSTRAINT IF EXISTS pk_board_id CASCADE;
-ALTER TABLE IF EXISTS ONLY public.board DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
-ALTER TABLE IF EXISTS ONLY public.board DROP CONSTRAINT IF EXISTS fk_person_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.question_group DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.question_group DROP CONSTRAINT IF EXISTS fk_person_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS pk_card_id CASCADE;
-ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_board_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_card_type_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.card_type DROP CONSTRAINT IF EXISTS pk_card_type_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS fk_question_group_id CASCADE;
 
 DROP TABLE IF EXISTS public.person;
 CREATE TABLE person (
                         id SERIAL NOT NULL,
                         username TEXT NOT NULL,
-                        email TEXT NOT NULL,
                         password TEXT NOT NULL,
                         registration_date TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS public.board;
-CREATE TABLE board (
-                       id SERIAL NOT NULL,
-                       question_id INTEGER NOT NULL,
-                       person_id INTEGER NOT NULL
+DROP TABLE IF EXISTS public.question_group;
+CREATE TABLE question_group (
+                                id SERIAL NOT NULL,
+                                group_name TEXT NOT NULL,
+                                person_id INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS public.card;
@@ -33,7 +32,7 @@ CREATE TABLE card (
                       id SERIAL NOT NULL,
                       order_number INTEGER NOT NULL,
                       vertical_status_name TEXT NOT NULL,
-                      board_id INTEGER NOT NULL,
+                      question_id INTEGER NOT NULL,
                       card_type_id INTEGER NOT NUll
 );
 
@@ -48,13 +47,15 @@ DROP TABLE IF EXISTS public.question;
 CREATE TABLE question (
                           id SERIAL NOT NULL,
                           question_text TEXT NOT NULL
+                              quesiton_group_id INTEGER NOT NULL,
+                          finalized BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 ALTER TABLE ONLY person
     ADD CONSTRAINT pk_person_id PRIMARY KEY (id);
 
-ALTER TABLE ONLY board
-    ADD CONSTRAINT pk_board_id PRIMARY KEY (id);
+ALTER TABLE ONLY question_group
+    ADD CONSTRAINT pk_question_id PRIMARY KEY (id);
 
 ALTER TABLE ONLY card_type
     ADD CONSTRAINT pk_card_type_id PRIMARY KEY (id);
@@ -65,39 +66,39 @@ ALTER TABLE ONLY question
 ALTER TABLE ONLY card
     ADD CONSTRAINT pk_card_id PRIMARY KEY (id);
 
-ALTER TABLE ONLY board
+ALTER TABLE ONLY question
+    ADD CONSTRAINT fk_question_group_id FOREIGN KEY (question_group_id) REFERENCES question_group(id);
+
+ALTER TABLE ONLY question_group
     ADD CONSTRAINT fk_person_id FOREIGN KEY (person_id) REFERENCES person(id);
 
-ALTER TABLE ONLY board
-    ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
-
 ALTER TABLE ONLY card
-    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board(id);
+    ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
 
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
 
 INSERT INTO person VALUES (DEFAULT, 'user', 'user@gmail.com', '12345', CURRENT_TIMESTAMP);
 
-INSERT INTO card_type VALUES (DEFAULT, 'freedom', 'freedom.png');
-INSERT INTO card_type VALUES (DEFAULT, 'goal', 'goal.png');
-INSERT INTO card_type VALUES (DEFAULT, 'honor', 'honor.png');
-INSERT INTO card_type VALUES (DEFAULT, 'order', 'order.png');
-INSERT INTO card_type VALUES (DEFAULT, 'acceptance', 'acceptance.png');
 INSERT INTO card_type VALUES (DEFAULT, 'curiosity', 'curiosity.png');
+INSERT INTO card_type VALUES (DEFAULT, 'honor', 'honor.png');
+INSERT INTO card_type VALUES (DEFAULT, 'acceptance', 'acceptance.png');
 INSERT INTO card_type VALUES (DEFAULT, 'mastery', 'mastery.png');
 INSERT INTO card_type VALUES (DEFAULT, 'power', 'power.png');
+INSERT INTO card_type VALUES (DEFAULT, 'freedom', 'freedom.png');
 INSERT INTO card_type VALUES (DEFAULT, 'relatedness', 'relatedness.png');
+INSERT INTO card_type VALUES (DEFAULT, 'order', 'order.png');
+INSERT INTO card_type VALUES (DEFAULT, 'goal', 'goal.png');
 INSERT INTO card_type VALUES (DEFAULT, 'status', 'status.png');
 
-INSERT INTO question VALUES (DEFAULT, 'What do you want to do?');
+INSERT INTO question_group VALUES (DEFAULT, 'Codecool', 1);
 
-INSERT INTO board VALUES (DEFAULT, 1, 1);
+INSERT INTO question VALUES (DEFAULT, 'What do you want?', 1, false);
 
 INSERT INTO card VALUES (DEFAULT, 1, 'neutral', 1, 1);
-INSERT INTO card VALUES (DEFAULT, 2, 'neutral', 1, 2);
+INSERT INTO card VALUES (DEFAULT, 2, 'negative', 1, 2);
 INSERT INTO card VALUES (DEFAULT, 3, 'neutral', 1, 3);
-INSERT INTO card VALUES (DEFAULT, 4, 'neutral', 1, 4);
+INSERT INTO card VALUES (DEFAULT, 4, 'positive', 1, 4);
 INSERT INTO card VALUES (DEFAULT, 5, 'neutral', 1, 5);
 INSERT INTO card VALUES (DEFAULT, 6, 'neutral', 1, 6);
 INSERT INTO card VALUES (DEFAULT, 7, 'neutral', 1, 7);
