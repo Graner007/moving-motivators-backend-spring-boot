@@ -12,23 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "card")
-public class Card {
+@Table(name = "question_group")
+public class QuestionGroup {
 
     @GeneratedValue
     @Id
     private Long id;
 
-    private int orderNumber;
-
-    /*@Enumerated(EnumType.STRING)
-    private VerticalStatusName verticalStatusName;*/
-    private String verticalStatusName;
-
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
-    private Question question;
-
-    @OneToOne
-    private CardType cardType;
+    private Person person;
 }
