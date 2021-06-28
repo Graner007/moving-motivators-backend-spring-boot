@@ -27,7 +27,7 @@ public class Card {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
-    private Board board;
+    private Question question;
 
     @OneToOne
     private CardType cardType;

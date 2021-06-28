@@ -12,16 +12,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "board")
-public class Board {
+@Table(name = "question_group")
+public class QuestionGroup {
 
     @GeneratedValue
     @Id
     private Long id;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
     private Person person;
-
-    @OneToOne
-    private Question question;
 }
