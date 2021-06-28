@@ -94,13 +94,13 @@ INSERT INTO question VALUES (DEFAULT, 'What do you want to do?');
 
 INSERT INTO board VALUES (DEFAULT, 1, 1);
 
-INSERT INTO card VALUES (DEFAULT, 1, 'natural', 1, 1);
-INSERT INTO card VALUES (DEFAULT, 2, 'natural', 1, 2);
-INSERT INTO card VALUES (DEFAULT, 3, 'natural', 1, 3);
-INSERT INTO card VALUES (DEFAULT, 4, 'natural', 1, 4);
-INSERT INTO card VALUES (DEFAULT, 5, 'natural', 1, 5);
-INSERT INTO card VALUES (DEFAULT, 6, 'natural', 1, 6);
-INSERT INTO card VALUES (DEFAULT, 7, 'natural', 1, 7);
-INSERT INTO card VALUES (DEFAULT, 8, 'natural', 1, 8);
-INSERT INTO card VALUES (DEFAULT, 9, 'natural', 1, 9);
-INSERT INTO card VALUES (DEFAULT, 10, 'natural', 1, 10);
+INSERT INTO card VALUES (DEFAULT, 1, 'neutral', 1, 1);
+INSERT INTO card VALUES (DEFAULT, 2, 'neutral', 1, 2);
+INSERT INTO card VALUES (DEFAULT, 3, 'neutral', 1, 3);
+INSERT INTO card VALUES (DEFAULT, 4, 'neutral', 1, 4);
+INSERT INTO card VALUES (DEFAULT, 5, 'neutral', 1, 5);
+INSERT INTO card VALUES (DEFAULT, 6, 'neutral', 1, 6);
+INSERT INTO card VALUES (DEFAULT, 7, 'neutral', 1, 7);
+INSERT INTO card VALUES (DEFAULT, 8, 'neutral', 1, 8);
+INSERT INTO card VALUES (DEFAULT, 9, 'positive', 1, 9);
+INSERT INTO card VALUES (DEFAULT, 10, 'negative', 1, 10);
