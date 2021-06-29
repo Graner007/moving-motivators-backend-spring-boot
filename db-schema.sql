@@ -90,18 +90,19 @@ INSERT INTO card_type VALUES (DEFAULT, 'relatedness', 'relatedness.png');
 INSERT INTO card_type VALUES (DEFAULT, 'order', 'order.png');
 INSERT INTO card_type VALUES (DEFAULT, 'goal', 'goal.png');
 INSERT INTO card_type VALUES (DEFAULT, 'status', 'status.png');
+INSERT INTO card_type VALUES (DEFAULT, 'default-image', 'default-image.png');
 
 INSERT INTO question_group VALUES (DEFAULT, 'Codecool', 1);
 
 INSERT INTO question VALUES (DEFAULT, 'What do you want?', 1, false);
 
 INSERT INTO card VALUES (DEFAULT, 1, 'neutral', 1, 1);
-INSERT INTO card VALUES (DEFAULT, 2, 'negative', 1, 2);
+INSERT INTO card VALUES (DEFAULT, 2, 'neutral', 1, 2);
 INSERT INTO card VALUES (DEFAULT, 3, 'neutral', 1, 3);
-INSERT INTO card VALUES (DEFAULT, 4, 'positive', 1, 4);
+INSERT INTO card VALUES (DEFAULT, 4, 'neutral', 1, 4);
 INSERT INTO card VALUES (DEFAULT, 5, 'neutral', 1, 5);
 INSERT INTO card VALUES (DEFAULT, 6, 'neutral', 1, 6);
 INSERT INTO card VALUES (DEFAULT, 7, 'neutral', 1, 7);
 INSERT INTO card VALUES (DEFAULT, 8, 'neutral', 1, 8);
-INSERT INTO card VALUES (DEFAULT, 9, 'positive', 1, 9);
-INSERT INTO card VALUES (DEFAULT, 10, 'negative', 1, 10);
+INSERT INTO card VALUES (DEFAULT, 9, 'neutral', 1, 9);
+INSERT INTO card VALUES (DEFAULT, 10, 'neutral', 1, 10);
