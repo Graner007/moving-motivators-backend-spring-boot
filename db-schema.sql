@@ -106,3 +106,25 @@ INSERT INTO card VALUES (DEFAULT, 7, 'neutral', 1, 7);
 INSERT INTO card VALUES (DEFAULT, 8, 'neutral', 1, 8);
 INSERT INTO card VALUES (DEFAULT, 9, 'neutral', 1, 9);
 INSERT INTO card VALUES (DEFAULT, 10, 'neutral', 1, 10);
+
+-- initialize 20 empty card slots
+INSERT INTO card VALUES (DEFAULT, 11, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 12, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 13, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 14, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 15, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 16, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 17, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 18, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 19, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 20, 'negative', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 21, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 22, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 23, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 24, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 25, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 26, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 27, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 28, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 29, 'positive', 1, 11);
+INSERT INTO card VALUES (DEFAULT, 30, 'positive', 1, 11);
