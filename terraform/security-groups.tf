@@ -1,4 +1,4 @@
-resource "aws_security_group" "movingmotivators-sg" {
+resource "aws_security_group" "moving-motivators-sg" {
   # name_prefix = "worker_group_mgmt_one"
   vpc_id      = module.vpc.vpc_id
 
