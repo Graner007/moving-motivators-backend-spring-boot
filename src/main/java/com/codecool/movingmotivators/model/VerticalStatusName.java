@@ -4,7 +4,8 @@ public enum VerticalStatusName {
 
     NATURAL("natural"),
     POSITIVE("positive"),
-    NEGATIVE("negative");
+    NEGATIVE("negative"),
+    DEFAULT_IMAGE("default-image");
 
     private final String statusName;
 

@@ -12,6 +12,9 @@ ALTER TABLE IF EXISTS ONLY public.card_type DROP CONSTRAINT IF EXISTS pk_card_ty
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS fk_question_group_id CASCADE;
 
+ALTER TABLE IF EXISTS ONLY public.auth_role DROP CONSTRAINT IF EXISTS pk_auth_role_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.auth_role DROP CONSTRAINT IF EXISTS fk_person_id CASCADE;
+
 DROP TABLE IF EXISTS public.person;
 CREATE TABLE person (
                         id SERIAL NOT NULL,
@@ -51,6 +54,12 @@ CREATE TABLE question (
                           finalized BOOLEAN NOT NULL DEFAULT FALSE
 );
 
+DROP TABLE IF EXISTS public.auth_role;
+CREATE TABLE auth_role (
+                           person_id INTEGER NOT NULL,
+                           user_role TEXT NOT NULL
+);
+
 ALTER TABLE ONLY person
     ADD CONSTRAINT pk_person_id PRIMARY KEY (id);
 
@@ -66,6 +75,9 @@ ALTER TABLE ONLY question
 ALTER TABLE ONLY card
     ADD CONSTRAINT pk_card_id PRIMARY KEY (id);
 
+ALTER TABLE ONLY auth_role
+    ADD CONSTRAINT pk_auth_role_id PRIMARY KEY (person_id, user_role);
+
 ALTER TABLE ONLY question
     ADD CONSTRAINT fk_question_group_id FOREIGN KEY (question_group_id) REFERENCES question_group(id);
 
@@ -77,6 +89,9 @@ ALTER TABLE ONLY card
 
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
+
+ALTER TABLE ONLY auth_role
+    ADD CONSTRAINT fk_person_id FOREIGN KEY (person_id) REFERENCES person(id);
 
 INSERT INTO person VALUES (DEFAULT, 'user', '12345', CURRENT_TIMESTAMP);
 
