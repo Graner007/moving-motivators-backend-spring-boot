@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Terraform ###
+.terraform.lock.hcl
+terraform/.terraform
+terraform/kubeconfig_moving-motivators
+
+.env
