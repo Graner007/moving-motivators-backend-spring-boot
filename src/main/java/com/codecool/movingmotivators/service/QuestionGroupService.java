@@ -26,4 +26,6 @@ public class QuestionGroupService {
 
         return ResponseEntity.badRequest().body("Token can not be null!");
     }
+
+    public QuestionGroup getQuestionGroupByGroupName(String groupName, long personId) { return questionGroupRepository.getQuestionGroupByGroupNameAndPersonId(groupName, personId); }
 }

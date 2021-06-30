@@ -11,4 +11,6 @@ public interface QuestionGroupRepository extends JpaRepository<QuestionGroup, Lo
 
     Collection<QuestionGroup> findAllByPersonId(long id);
 
+    QuestionGroup getQuestionGroupByGroupNameAndPersonId(String groupName, long personId);
+
 }
