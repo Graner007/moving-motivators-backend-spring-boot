@@ -21,9 +21,8 @@ public class Card {
 
     private int orderNumber;
 
-    /*@Enumerated(EnumType.STRING)
-    private VerticalStatusName verticalStatusName;*/
-    private String verticalStatusName;
+    @Enumerated(EnumType.STRING)
+    private VerticalStatusName verticalStatusName;
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
