@@ -5,6 +5,7 @@ import com.codecool.movingmotivators.model.CardType;
 import com.codecool.movingmotivators.model.Question;
 import com.codecool.movingmotivators.model.VerticalStatusName;
 import com.codecool.movingmotivators.repository.CardRepository;
+import com.codecool.movingmotivators.repository.EmptyCardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,9 @@ public class CardService {
 
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    EmptyCardRepository
 
     public List<Card> getAllCards() { return cardRepository.findAll(); }
 
