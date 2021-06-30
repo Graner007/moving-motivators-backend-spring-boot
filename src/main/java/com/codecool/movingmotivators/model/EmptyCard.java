@@ -6,31 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "card")
-public class Card {
+@Table(name = "empty_card")
+public class EmptyCard {
 
     @GeneratedValue
     @Id
-    private Long id;
-
-    private int orderNumber;
+    private long id;
 
     @Enumerated(EnumType.STRING)
     private VerticalStatusName verticalStatusName;
-
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
-    private Question question;
-
-    @OneToMany
-    private List<EmptyCard> emptyCardList;
 
     @OneToOne
     private CardType cardType;
