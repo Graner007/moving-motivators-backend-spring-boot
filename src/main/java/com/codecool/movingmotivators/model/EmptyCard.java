@@ -10,14 +10,17 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
+@Entity
 @Table(name = "empty_card")
 public class EmptyCard {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
+
+    @OneToOne
+    private Card card;
 
     @Enumerated(EnumType.STRING)
     private VerticalStatusName verticalStatusName;

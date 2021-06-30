@@ -22,7 +22,13 @@ public class PersonService {
     private final CardTypeService cardTypeService;
     private final PasswordEncoder bCryptPasswordEncoder;
 
-    public ResponseEntity register(Person person) {
+    public ResponseEntity register(String username, String password) {
+        Person person = Person.builder()
+                .username(username)
+                .password(password)
+                .registrationDate(LocalDate.now())
+                .build();
+
         if (person.getUsername() == null || person.getRegistrationDate() == null || person.getPassword() == null)
             return ResponseEntity.badRequest().body("User details can not be null!");
 
@@ -44,8 +50,8 @@ public class PersonService {
         personRepository.save(person);
 
         QuestionGroup defaultQuestionGroup = QuestionGroup.builder()
-                .person(person)
                 .groupName("Default")
+                .person(person)
                 .build();
 
         questionGroupService.addQuestionGroup(defaultQuestionGroup);
@@ -68,9 +74,49 @@ public class PersonService {
         Card order = cardService.createCard(8, defaultQuestion, VerticalStatusName.NEUTRAL, cardTypeService.getCardTypeById(8));
         Card goal = cardService.createCard(9, defaultQuestion, VerticalStatusName.NEUTRAL, cardTypeService.getCardTypeById(9));
         Card status = cardService.createCard(10, defaultQuestion, VerticalStatusName.NEUTRAL, cardTypeService.getCardTypeById(10));
-        Card defaultImage = cardService.createCard(11, defaultQuestion, VerticalStatusName.NEUTRAL, cardTypeService.getCardTypeById(11));
 
-        cardService.addCards(List.of(curiosity, honor, acceptance, mastery, power, freedom, relatedness, order, goal, status, defaultImage));
+        cardService.addCards(List.of(curiosity, honor, acceptance, mastery, power, freedom, relatedness, order, goal, status));
+
+        EmptyCard curiosityPositiveEmptyCard = cardService.createEmptyCard(curiosity, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard curiosityNegativeEmptyCard = cardService.createEmptyCard(curiosity, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard honorPositiveEmptyCard = cardService.createEmptyCard(honor, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard honorNegativeEmptyCard = cardService.createEmptyCard(honor, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard acceptancePositiveEmptyCard = cardService.createEmptyCard(acceptance, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard acceptanceNegativeEmptyCard = cardService.createEmptyCard(acceptance, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard masteryPositiveEmptyCard = cardService.createEmptyCard(mastery, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard masteryNegativeEmptyCard = cardService.createEmptyCard(mastery, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard powerPositiveEmptyCard = cardService.createEmptyCard(power, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard powerNegativeEmptyCard = cardService.createEmptyCard(power, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard freedomPositiveEmptyCard = cardService.createEmptyCard(freedom, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard freedomNegativeEmptyCard = cardService.createEmptyCard(freedom, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard relatednessPositiveEmptyCard = cardService.createEmptyCard(relatedness, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard relatednessNegativeEmptyCard = cardService.createEmptyCard(relatedness, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard orderPositiveEmptyCard = cardService.createEmptyCard(order, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard orderNegativeEmptyCard = cardService.createEmptyCard(order, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard goalPositiveEmptyCard = cardService.createEmptyCard(goal, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard goalNegativeEmptyCard = cardService.createEmptyCard(goal, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        EmptyCard statusPositiveEmptyCard = cardService.createEmptyCard(status, VerticalStatusName.POSITIVE, cardTypeService.getCardTypeById(11));
+        EmptyCard statusNegativeEmptyCard = cardService.createEmptyCard(status, VerticalStatusName.NEGATIVE, cardTypeService.getCardTypeById(11));
+
+        cardService.addEmptyCards(List.of(curiosityPositiveEmptyCard, curiosityNegativeEmptyCard,
+                honorPositiveEmptyCard, honorNegativeEmptyCard,
+                acceptancePositiveEmptyCard, acceptanceNegativeEmptyCard,
+                masteryPositiveEmptyCard, masteryNegativeEmptyCard,
+                powerPositiveEmptyCard, powerNegativeEmptyCard,
+                freedomPositiveEmptyCard, freedomNegativeEmptyCard,
+                relatednessPositiveEmptyCard, relatednessNegativeEmptyCard,
+                orderPositiveEmptyCard, orderNegativeEmptyCard,
+                goalPositiveEmptyCard, goalNegativeEmptyCard,
+                statusPositiveEmptyCard, statusNegativeEmptyCard));
 
         return ResponseEntity.ok().build();
     }

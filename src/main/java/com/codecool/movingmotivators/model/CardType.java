@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "card_type")
 public class CardType {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 

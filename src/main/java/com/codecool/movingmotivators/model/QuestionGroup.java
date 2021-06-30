@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Table(name = "question_group")
 public class QuestionGroup {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 

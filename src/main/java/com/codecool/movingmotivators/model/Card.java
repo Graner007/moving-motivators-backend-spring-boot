@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "card")
 public class Card {
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -28,9 +28,6 @@ public class Card {
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
     private Question question;
-
-    @OneToMany
-    private List<EmptyCard> emptyCardList;
 
     @OneToOne
     private CardType cardType;
