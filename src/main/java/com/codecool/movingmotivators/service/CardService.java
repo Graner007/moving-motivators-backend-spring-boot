@@ -9,10 +9,11 @@ import java.util.List;
 
 @Service
 public class CardService {
+
     @Autowired
     private CardRepository cardRepository;
 
-    public List<Card> getAllCards() {
-        return cardRepository.findAll();
-    }
+    public List<Card> getAllCards() { return cardRepository.findAll(); }
+
+    public void addCards(List<Card> cards) { cardRepository.saveAll(cards); }
 }

@@ -1,9 +1,8 @@
 package com.codecool.movingmotivators.service;
 
-import com.codecool.movingmotivators.model.Person;
-import com.codecool.movingmotivators.model.UserRole;
-import com.codecool.movingmotivators.model.UserRoleEnum;
+import com.codecool.movingmotivators.model.*;
 import com.codecool.movingmotivators.repository.PersonRepository;
+import com.codecool.movingmotivators.repository.QuestionGroupRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +17,9 @@ import java.util.Optional;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final QuestionGroupService questionGroupService;
+    private final QuestionService questionService;
+    private final CardService cardService;
     private final PasswordEncoder bCryptPasswordEncoder;
 
     public ResponseEntity register(Person person) {
@@ -35,11 +37,31 @@ public class PersonService {
 
         person.setPassword(encodedPassword);
         person.setRegistrationDate(LocalDate.now());
-        UserRole role = new UserRole(person, UserRoleEnum.ROLE_USER);
 
+        UserRole role = new UserRole(person, UserRoleEnum.ROLE_USER);
         person.setRoles(List.of(role));
 
         personRepository.save(person);
+
+        QuestionGroup defaultQuestionGroup = QuestionGroup.builder()
+                .person(person)
+                .groupName("Default")
+                .build();
+
+        questionGroupService.addQuestionGroup(defaultQuestionGroup);
+
+        Question defaultQuestion = Question.builder()
+                .questionGroup(defaultQuestionGroup)
+                .questionText("")
+                .finalized(false)
+                .build();
+
+        questionService.addQuestion(defaultQuestion);
+
+        Card curiosity = Card.builder()
+                .cardType(CardType)
+                .build();
+
         return ResponseEntity.ok().build();
     }
 
