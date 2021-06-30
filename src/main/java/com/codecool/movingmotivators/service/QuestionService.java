@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 @AllArgsConstructor
 public class QuestionService {
@@ -30,4 +32,7 @@ public class QuestionService {
 
         return ResponseEntity.badRequest().body("Token can not be null!");
     }
+
+    public Question getQuestionByName(String name) { return questionRepository.getQuestionByQuestionText(name); }
+
 }

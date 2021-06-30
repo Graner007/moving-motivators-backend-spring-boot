@@ -3,7 +3,9 @@ package com.codecool.movingmotivators.service;
 import com.codecool.movingmotivators.model.*;
 import com.codecool.movingmotivators.repository.CardRepository;
 import com.codecool.movingmotivators.repository.EmptyCardRepository;
+import com.codecool.movingmotivators.security.jwt.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -17,6 +19,15 @@ public class CardService {
 
     @Autowired
     private EmptyCardRepository emptyCardRepository;
+
+    @Autowired
+    private JwtService jwtService;
+
+    @Autowired
+    private QuestionGroupService questionGroupService;
+
+    @Autowired
+    private QuestionService questionService;
 
     public Collection<Card> getAllCards() { return cardRepository.findAll(); }
 
@@ -41,5 +52,44 @@ public class CardService {
                 .verticalStatusName(verticalStatusName)
                 .cardType(cardType)
                 .build();
+    }
+
+    public ResponseEntity getCardsByQuestionGroupNameAndQuestionName(String bearerToken, String questionGroupName, String questionName) {
+        if (bearerToken != null) {
+            String token = jwtService.getTokenWithoutBearer(bearerToken);
+            Question question = questionService.getQuestionByName(questionName);
+
+            return ResponseEntity.ok(cardRepository.getCardsByQuestionId(question.getId()));
+
+        }
+
+        return ResponseEntity.badRequest().body("Token can not be null!");
+    }
+
+    public ResponseEntity changeCardsOrder(String bearerToken, String questionGroupName, String questionName, String dragCardId, String dropCardId) {
+        if (bearerToken != null) {
+            Question question = questionService.getQuestionByName(questionName);
+            Collection<Card> cards = cardRepository.getCardsByQuestionId(question.getId());
+
+            Card dragCard = null;
+            Card dropCard = null;
+
+            for (Card card : cards) {
+                if (card.getId() == Long.parseLong(dragCardId))
+                    dragCard = card;
+                else if (card.getId() == Long.parseLong(dropCardId))
+                    dropCard = card;
+            }
+
+            if (dragCard != null && dropCard != null) {
+                dragCard.setOrderNumber(dropCard.getOrderNumber());
+                dropCard.setOrderNumber(dragCard.getOrderNumber());
+            }
+
+            ResponseEntity.ok();
+
+        }
+
+        return ResponseEntity.badRequest().body("Token can not be null!");
     }
 }
