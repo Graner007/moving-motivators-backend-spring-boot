@@ -7,6 +7,10 @@ ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS pk_card_id CASC
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_card_type_id CASCADE;
 
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS pk_empty_card_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS fk_card_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS fk_card_type_id CASCADE;
+
 ALTER TABLE IF EXISTS ONLY public.card_type DROP CONSTRAINT IF EXISTS pk_card_type_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
@@ -36,6 +40,14 @@ CREATE TABLE card (
                       order_number INTEGER NOT NULL,
                       vertical_status_name TEXT NOT NULL,
                       question_id INTEGER NOT NULL,
+                      card_type_id INTEGER NOT NUll
+);
+
+DROP TABLE IF EXISTS public.empty_card;
+CREATE TABLE empty_card (
+                      id SERIAL NOT NULL,
+                      card_id INTEGER NOT NULL,
+                      vertical_status_name TEXT NOT NULL,
                       card_type_id INTEGER NOT NUll
 );
 
@@ -75,6 +87,9 @@ ALTER TABLE ONLY question
 ALTER TABLE ONLY card
     ADD CONSTRAINT pk_card_id PRIMARY KEY (id);
 
+ALTER TABLE ONLY empty_card
+    ADD CONSTRAINT pk_empty_card_id PRIMARY KEY (id);
+
 ALTER TABLE ONLY auth_role
     ADD CONSTRAINT pk_auth_role_id PRIMARY KEY (person_id, user_role);
 
@@ -88,6 +103,12 @@ ALTER TABLE ONLY card
     ADD CONSTRAINT fk_question_id FOREIGN KEY (question_id) REFERENCES question(id);
 
 ALTER TABLE ONLY card
+    ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
+
+ALTER TABLE ONLY empty_card
+    ADD CONSTRAINT fk_card_id FOREIGN KEY (card_id) REFERENCES card(id);
+
+ALTER TABLE ONLY empty_card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
 
 ALTER TABLE ONLY auth_role
