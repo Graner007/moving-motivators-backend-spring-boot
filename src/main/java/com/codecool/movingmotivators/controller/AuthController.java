@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/auth")
 public class AuthController {
 
     private final JwtService jwtService;
@@ -40,7 +39,7 @@ public class AuthController {
     private final String TOKEN_BEARER = "Bearer";
     private final String TOKEN_PATH = "/";
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "application/json")
     public ResponseEntity login(@RequestBody UserCredentials data, HttpServletResponse res) {
         try {
             String username = data.getUsername();

@@ -1,6 +1,5 @@
 package com.codecool.movingmotivators.controller;
 
-import com.codecool.movingmotivators.model.Person;
 import com.codecool.movingmotivators.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +14,7 @@ public class RegistrationController {
     private final PersonService personService;
 
     @PostMapping
-    public ResponseEntity register(@RequestBody Person person) { return personService.register(person); }
+    public ResponseEntity register(@RequestParam(value = "username") String username,
+                                   @RequestParam(value = "password") String password) {
+        return personService.register(username, password); }
 }
