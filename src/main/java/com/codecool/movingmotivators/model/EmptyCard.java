@@ -10,20 +10,21 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
-@Table(name = "question")
-public class Question {
+@Entity
+@Table(name = "empty_card")
+public class EmptyCard {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private Long id;
+    private long id;
 
-    @ManyToOne
-    @JoinColumn(referencedColumnName = "id")
-    private QuestionGroup questionGroup;
+    @OneToOne
+    private Card card;
 
-    private String questionText;
+    @Enumerated(EnumType.STRING)
+    private VerticalStatusName verticalStatusName;
 
-    private Boolean finalized;
+    @OneToOne
+    private CardType cardType;
 }
