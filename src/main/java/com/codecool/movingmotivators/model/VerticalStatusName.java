@@ -2,9 +2,10 @@ package com.codecool.movingmotivators.model;
 
 public enum VerticalStatusName {
 
-    NATURAL("natural"),
+    NEUTRAL("neutral"),
     POSITIVE("positive"),
-    NEGATIVE("negative");
+    NEGATIVE("negative"),
+    DEFAULT_IMAGE("default-image");
 
     private final String statusName;
 

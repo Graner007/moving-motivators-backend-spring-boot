@@ -7,10 +7,17 @@ ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS pk_card_id CASC
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.card DROP CONSTRAINT IF EXISTS fk_card_type_id CASCADE;
 
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS pk_empty_card_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS fk_card_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.empty_card DROP CONSTRAINT IF EXISTS fk_card_type_id CASCADE;
+
 ALTER TABLE IF EXISTS ONLY public.card_type DROP CONSTRAINT IF EXISTS pk_card_type_id CASCADE;
 
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS pk_question_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.question DROP CONSTRAINT IF EXISTS fk_question_group_id CASCADE;
+
+ALTER TABLE IF EXISTS ONLY public.auth_role DROP CONSTRAINT IF EXISTS pk_auth_role_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.auth_role DROP CONSTRAINT IF EXISTS fk_person_id CASCADE;
 
 DROP TABLE IF EXISTS public.person;
 CREATE TABLE person (
@@ -36,6 +43,14 @@ CREATE TABLE card (
                       card_type_id INTEGER NOT NUll
 );
 
+DROP TABLE IF EXISTS public.empty_card;
+CREATE TABLE empty_card (
+                      id SERIAL NOT NULL,
+                      card_id INTEGER NOT NULL,
+                      vertical_status_name TEXT NOT NULL,
+                      card_type_id INTEGER NOT NUll
+);
+
 DROP TABLE IF EXISTS public.card_type;
 CREATE TABLE card_type (
                            id SERIAL NOT NULL,
@@ -49,6 +64,12 @@ CREATE TABLE question (
                           question_text TEXT NOT NULL,
                           question_group_id INTEGER NOT NULL,
                           finalized BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+DROP TABLE IF EXISTS public.auth_role;
+CREATE TABLE auth_role (
+                           person_id INTEGER NOT NULL,
+                           user_role TEXT NOT NULL
 );
 
 ALTER TABLE ONLY person
@@ -66,6 +87,12 @@ ALTER TABLE ONLY question
 ALTER TABLE ONLY card
     ADD CONSTRAINT pk_card_id PRIMARY KEY (id);
 
+ALTER TABLE ONLY empty_card
+    ADD CONSTRAINT pk_empty_card_id PRIMARY KEY (id);
+
+ALTER TABLE ONLY auth_role
+    ADD CONSTRAINT pk_auth_role_id PRIMARY KEY (person_id, user_role);
+
 ALTER TABLE ONLY question
     ADD CONSTRAINT fk_question_group_id FOREIGN KEY (question_group_id) REFERENCES question_group(id);
 
@@ -78,7 +105,14 @@ ALTER TABLE ONLY card
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
 
-INSERT INTO person VALUES (DEFAULT, 'user', '12345', CURRENT_TIMESTAMP);
+ALTER TABLE ONLY empty_card
+    ADD CONSTRAINT fk_card_id FOREIGN KEY (card_id) REFERENCES card(id);
+
+ALTER TABLE ONLY empty_card
+    ADD CONSTRAINT fk_card_type_id FOREIGN KEY (card_type_id) REFERENCES card_type(id);
+
+ALTER TABLE ONLY auth_role
+    ADD CONSTRAINT fk_person_id FOREIGN KEY (person_id) REFERENCES person(id);
 
 INSERT INTO card_type VALUES (DEFAULT, 'curiosity', 'curiosity.png');
 INSERT INTO card_type VALUES (DEFAULT, 'honor', 'honor.png');
@@ -91,40 +125,3 @@ INSERT INTO card_type VALUES (DEFAULT, 'order', 'order.png');
 INSERT INTO card_type VALUES (DEFAULT, 'goal', 'goal.png');
 INSERT INTO card_type VALUES (DEFAULT, 'status', 'status.png');
 INSERT INTO card_type VALUES (DEFAULT, 'default-image', 'default-image.png');
-
-INSERT INTO question_group VALUES (DEFAULT, 'Codecool', 1);
-
-INSERT INTO question VALUES (DEFAULT, 'What do you want?', 1, false);
-
-INSERT INTO card VALUES (DEFAULT, 1, 'neutral', 1, 1);
-INSERT INTO card VALUES (DEFAULT, 2, 'neutral', 1, 2);
-INSERT INTO card VALUES (DEFAULT, 3, 'neutral', 1, 3);
-INSERT INTO card VALUES (DEFAULT, 4, 'neutral', 1, 4);
-INSERT INTO card VALUES (DEFAULT, 5, 'neutral', 1, 5);
-INSERT INTO card VALUES (DEFAULT, 6, 'neutral', 1, 6);
-INSERT INTO card VALUES (DEFAULT, 7, 'neutral', 1, 7);
-INSERT INTO card VALUES (DEFAULT, 8, 'neutral', 1, 8);
-INSERT INTO card VALUES (DEFAULT, 9, 'neutral', 1, 9);
-INSERT INTO card VALUES (DEFAULT, 10, 'neutral', 1, 10);
-
--- initialize 20 empty card slots
-INSERT INTO card VALUES (DEFAULT, 11, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 12, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 13, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 14, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 15, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 16, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 17, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 18, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 19, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 20, 'negative', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 21, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 22, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 23, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 24, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 25, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 26, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 27, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 28, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 29, 'positive', 1, 11);
-INSERT INTO card VALUES (DEFAULT, 30, 'positive', 1, 11);
