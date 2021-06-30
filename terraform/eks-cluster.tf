@@ -19,7 +19,7 @@ module "eks" {
       name                          = "${var.project_name}-wg-1"
       instance_type                 = "${var.ec2_type}"
       additional_userdata           = "echo foo bar"
-      additional_security_group_ids = [aws_security_group.movingmotivators-sg.id]
+      additional_security_group_ids = [aws_security_group.moving-motivators-sg.id]
       asg_desired_capacity          = 2
     }
   ]
@@ -31,4 +31,11 @@ data "aws_eks_cluster" "cluster" {
 
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_id
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.cluster.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+  config_path            = "kubeconfig_${var.project_name}"
 }

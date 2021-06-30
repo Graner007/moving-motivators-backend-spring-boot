@@ -5,7 +5,7 @@ variable "aws_profile" {
     default = "kisstamas86"
 }
 variable "project_name" {
-    default = "movingmotivators"
+    default = "moving-motivators"
 }
 variable "ec2_type" {
     default = "m5.large"

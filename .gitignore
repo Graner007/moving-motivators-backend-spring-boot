@@ -33,7 +33,8 @@ build/
 .vscode/
 
 ### Terraform ###
+.terraform.lock.hcl
 terraform/.terraform
-terraform/kubeconfig_movingmotivators
+terraform/kubeconfig_moving-motivators
 
 .env

@@ -32,7 +32,7 @@ module "vpc" {
 
 }
 
-resource "aws_db_subnet_group" "movingmotivators-subnetgroup" {
-  name       = "movingmotivators-subnetgroup"
+resource "aws_db_subnet_group" "moving-motivators-subnetgroup" {
+  name       = "${var.project_name}-subnetgroup"
   subnet_ids = module.vpc.public_subnets
 }

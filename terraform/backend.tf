@@ -1,10 +1,10 @@
 terraform {
   backend "s3" {
-    bucket  = "movingmotivators"
+    bucket  = "moving-motivators"
     key     = "terraform.tfstate"
     region  = "eu-central-1"
     profile = "kisstamas86"
-    dynamodb_table = "movingmotivators"
+    dynamodb_table = "moving-motivators"
     encrypt = true
   }
 }
