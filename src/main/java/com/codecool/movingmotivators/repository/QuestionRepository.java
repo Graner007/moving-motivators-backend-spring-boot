@@ -11,4 +11,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Collection<Question> getQuestionsByQuestionGroupId(long id);
 
+    Question getQuestionByQuestionText(String name);
+
 }

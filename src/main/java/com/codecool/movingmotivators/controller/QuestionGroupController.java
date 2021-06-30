@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = {"${cross.origin.port.number}"})
-@RequestMapping(path = "question-group")
+@RequestMapping(path = "/question-group")
 public class QuestionGroupController {
 
     private final QuestionGroupService questionGroupService;

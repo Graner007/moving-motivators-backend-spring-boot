@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = {"${cross.origin.port.number}"})
-@RequestMapping(path = "{questionGroupName}/questions")
+@RequestMapping(path = "/{questionGroupName}/questions")
 public class QuestionController {
 
     private final QuestionService questionService;
@@ -16,6 +16,6 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity questions(@CookieValue("token") String token,
                                     @PathVariable("questionGroupName") String questionGroupName) {
-        return questionService.getQuestionByQuestionGroupName(token, questionGroupName);
+        return ResponseEntity.ok(questionService.getQuestionByQuestionGroupName(token, questionGroupName));
     }
 }
