@@ -33,6 +33,6 @@ public class QuestionService {
         return ResponseEntity.badRequest().body("Token can not be null!");
     }
 
-    public Question getQuestionByName(String name) { return questionRepository.getQuestionByQuestionText(name); }
+    public Question getQuestionByName(String name) {return questionRepository.getQuestionByQuestionText(name); }
 
 }
