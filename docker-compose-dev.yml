@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+  frontend:
+    build:
+      context: moving-motivators-frontend-react
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: http://backend:8080
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    links:
+      - backend
+    networks:
+      - mm-nw
+
+  backend:
+    build:
+      context: moving-motivators-backend-spring-boot
+      dockerfile: Dockerfile
+    environment:
+      - CROSS_ORIGIN_PORT_NUMBER=localhost:3000
+      - DB_URL=db
+      - DB_PORT=5432
+      - DB_NAME=movingmotivatorsdatabase
+      - DB_USER=postgres
+      - DB_PWD=db_password
+    ports:
+      - "8080:8080"
+    networks:
+      - mm-nw
+    depends_on:
+      - db
+
+  # TODO: Add a script to populate initial db
+  db:
+    image: postgres:12
+    ports:
+      - "5432:5432"
+    networks:
+      - mm-nw
+    environment:
+      - POSTGRES_PASSWORD=db_password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+networks:
+  mm-nw:
+
+volumes:
+  db-data:
