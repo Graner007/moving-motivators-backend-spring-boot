@@ -1,0 +1,36 @@
+version: '3.3'
+
+services:
+  frontend:
+    build:
+      context: moving-motivators-frontend-react
+      dockerfile: Dockerfile
+#      args:
+#        REACT_APP_API_BASE_URL: http://127.0.0.1:8080
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    links:
+      - backend
+    networks:
+      - mm-nw
+
+  backend:
+    build:
+      context: moving-motivators-backend-spring-boot
+      dockerfile: Dockerfile
+    environment:
+      - CROSS_ORIGIN_PORT_NUMBER=8080
+      - DB_URL=moving-motivators-database.ctmlv21ktrhx.eu-central-1.rds.amazonaws.com
+      - DB_PORT=5432
+      - DB_NAME=movingmotivatorsdatabase
+      - DB_USER=mmBoss
+      - DB_PWD=movingmotivators
+    ports:
+      - 8080:8080
+    networks:
+      - mm-nw
+
+networks:
+  mm-nw:
