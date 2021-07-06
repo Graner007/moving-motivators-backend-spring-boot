@@ -36,7 +36,9 @@ services:
 
   # TODO: Add a script to populate initial db
   db:
-    image: postgres:12
+    build:
+      context: moving-motivators-backend-spring-boot
+      dockerfile: Dockerfile-db
     ports:
       - "5432:5432"
     networks:
