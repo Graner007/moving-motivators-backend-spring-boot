@@ -86,7 +86,7 @@ public class CardService {
                 dropCard.setOrderNumber(dragCard.getOrderNumber());
             }
 
-            ResponseEntity.ok();
+            return ResponseEntity.ok().body("TODO: return new state");
 
         }
 
