@@ -7,8 +7,16 @@ services:
       dockerfile: Dockerfile
       args:
         REACT_APP_API_BASE_URL: http://backend:8080
+    volumes:
+      - type: bind
+        source: ./moving-motivators-frontend-react/src
+        target: /app/src
     depends_on:
       - backend
+    environment:
+      - NODE_ENV=development
+    command: npm start
+    tty: true
     ports:
       - "3000:3000"
     links:
@@ -21,7 +29,7 @@ services:
       context: moving-motivators-backend-spring-boot
       dockerfile: Dockerfile
     environment:
-      - CROSS_ORIGIN_PORT_NUMBER=localhost:3000
+      - CROSS_ORIGIN_PORT_NUMBER=http://localhost:3000
       - DB_URL=db
       - DB_PORT=5432
       - DB_NAME=movingmotivatorsdatabase
