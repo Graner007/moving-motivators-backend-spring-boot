@@ -56,6 +56,7 @@ public class PersonService {
 
         questionGroupService.addQuestionGroup(defaultQuestionGroup);
 
+        // TODO: Rethink when/how questions are created
         Question defaultQuestion = Question.builder()
                 .questionGroup(defaultQuestionGroup)
                 .questionText("")

@@ -1,0 +1,4 @@
+FROM postgres:12
+ENV POSTGRES_PASSWORD db_password 
+ENV POSTGRES_DB movingmotivatorsdatabase
+COPY db-schema.sql /docker-entrypoint-initdb.d/
