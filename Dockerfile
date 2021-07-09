@@ -14,8 +14,6 @@ WORKDIR /app
 
 COPY --from=build app/target/*.jar app.jar
 
-COPY src/main/resources/media src/main/resources/media
-
 EXPOSE 8080
 
 ENTRYPOINT ["java","-jar","/app/app.jar"]

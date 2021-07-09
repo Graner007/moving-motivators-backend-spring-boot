@@ -2,18 +2,16 @@ package com.codecool.movingmotivators.service;
 
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
 
 @Service
 public class MediaService {
 
-    private static final String MEDIA_PATH = "./src/main/resources/media/";
+    private static final String MEDIA_PATH = "../../../../media/";
 
     public byte[] getCardImageByName(String imageName) {
         try {
-            return Files.readAllBytes(Paths.get(MEDIA_PATH + imageName));
+            return getClass().getResourceAsStream(MEDIA_PATH + imageName).readAllBytes();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
